@@ -14,7 +14,7 @@ namespace MyTasks.Models
         
         public DateTime DataCriada { get; set; }
 
-        public DateTime DataMarcada { get; set; }
+        public DateTime DataMarcada { get; set; } = DateTime.Now;
 
         [ObservableProperty]
         int taskStatusIndex;

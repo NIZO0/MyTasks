@@ -67,7 +67,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Task">
 
-                    <SwipeView Margin="0,5" SwipeEnded="SwipeView_SwipeEnded">
+                    <SwipeView
+                        Margin="0,5"
+                        SwipeEnded="SwipeView_SwipeEnded">
 
                         <SwipeView.RightItems>
 
@@ -277,7 +279,7 @@
                                 <Grid>
 
                                     <Picker
-                                        Title="Escolha um ordem"
+                                        Title="Escolha uma ordem"
                                         SelectedIndex="{Binding TarefaSelecionada.TaskStatusIndex}"
                                         Style="{StaticResource PickerStyle}">
 
@@ -368,7 +370,7 @@
                                 <Grid>
 
                                     <Picker
-                                        Title="Escolha um ordem"
+                                        Title="Escolha uma ordem"
                                         SelectedIndex="{Binding FiltroIndex}"
                                         Style="{StaticResource PickerStyle}">
 
