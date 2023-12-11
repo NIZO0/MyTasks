@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTasks.Views.HelpPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Guia de ajuda"
+    Shell.BackgroundColor="{StaticResource Primary}"
+    Shell.TitleColor="White">
+
+    <ScrollView>
+
+        <VerticalStackLayout
+            Margin="20"
+            Spacing="20">
+
+            <!--  Interface  -->
+            <Frame
+                Padding="0"
+                Style="{StaticResource FrameStyle}">
+
+                <VerticalStackLayout>
+
+                    <!--  Title  -->
+                    <Grid
+                        Padding="10"
+                        BackgroundColor="{StaticResource Primary}">
+
+                        <Label
+                            Style="{StaticResource Label20Style}"
+                            Text="Interface" />
+
+                    </Grid>
+
+                    <!--  Body  -->
+                    <VerticalStackLayout
+                        Padding="20"
+                        Spacing="20">
+
+                        <!--  dica  -->
+                        <Label
+                            Style="{StaticResource Label14Style}"
+                            Text="Deslize para a esquerda para abrir o menu de botões." />
+
+                        <!--  Antes image  -->
+                        <Frame BackgroundColor="{AppThemeBinding Light={StaticResource MyLightColor}, Dark={StaticResource MyDarkColor}}">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <Label
+                                    Style="{StaticResource Label14Style}"
+                                    Text="Antes" />
+
+                                <Image Source="image_task" />
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+
+                        <!--  After image  -->
+                        <Frame
+                            Grid.Column="1"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource MyLightColor},
+                                                              Dark={StaticResource MyDarkColor}}">
+
+                            <VerticalStackLayout Spacing="10">
+
+                                <Label
+                                    Style="{StaticResource Label14Style}"
+                                    Text="Depois" />
+
+                                <Image Source="image_task_deslizada" />
+
+                            </VerticalStackLayout>
+
+                        </Frame>
+
+                        <!--  Excluir botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="Red">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_excluir"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Exclui a tarefa selecionada." />
+
+                        </Grid>
+
+                        <!--  Editar botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="Blue">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_editar"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Edita a tarefa selecionada." />
+
+                        </Grid>
+
+                        <!--  Concluir botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="Green">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_concluir"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Conclui a tarefa selecionada." />
+
+                        </Grid>
+
+                        <!--  Adicionar botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{StaticResource MyDarkColor}">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_adicionar"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Adiciona uma nova tarefa." />
+
+                        </Grid>
+
+                        <!--  Filtrar botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{StaticResource MyDarkColor}">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_filter"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Filtra as tarefas." />
+
+                        </Grid>
+
+                        <!--  Ajudar botão  -->
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            ColumnSpacing="10">
+
+                            <Frame
+                                Padding="5"
+                                BackgroundColor="{StaticResource MyDarkColor}">
+
+                                <Image
+                                    HeightRequest="20"
+                                    Source="logo_ajudar"
+                                    WidthRequest="20" />
+
+                            </Frame>
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Abre o guia de ajuda." />
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <!--  Cores das tarefas  -->
+            <Frame
+                Padding="0"
+                Style="{StaticResource FrameStyle}">
+
+                <VerticalStackLayout>
+
+                    <!--  Title  -->
+                    <Grid
+                        Padding="10"
+                        BackgroundColor="{StaticResource Primary}">
+
+                        <Label
+                            Style="{StaticResource Label20Style}"
+                            Text="Cores das tarefas" />
+
+                    </Grid>
+
+                    <!--  Body  -->
+                    <VerticalStackLayout
+                        Padding="20"
+                        Spacing="20">
+
+                        <!--  Cor normal  -->
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="20">
+
+                            <BoxView
+                                BackgroundColor="#F0F0F0"
+                                HeightRequest="25"
+                                WidthRequest="25" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Cor de uma tarefa normal." />
+
+                        </Grid>
+
+                        <!--  Cor concluida  -->
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="20">
+
+                            <BoxView
+                                BackgroundColor="#95D5B2"
+                                HeightRequest="25"
+                                WidthRequest="25" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Cor de uma tarefa concluída." />
+
+                        </Grid>
+
+                        <!--  Cor prioridade baixa  -->
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="20">
+
+                            <BoxView
+                                BackgroundColor="#FFDD00"
+                                HeightRequest="25"
+                                WidthRequest="25" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Cor de uma tarefa com prioridade baixa." />
+
+                        </Grid>
+
+                        <!--  Cor prioridade média  -->
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="20"
+                            RowDefinitions="Auto">
+
+                            <BoxView
+                                BackgroundColor="#FFAA00"
+                                HeightRequest="25"
+                                WidthRequest="25" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Cor de uma tarefa com prioridade média." />
+
+                        </Grid>
+
+                        <!--  Cor prioridade alta  -->
+                        <Grid
+                            ColumnDefinitions="Auto,*"
+                            ColumnSpacing="20">
+
+                            <BoxView
+                                BackgroundColor="#FF7B00"
+                                HeightRequest="25"
+                                WidthRequest="25" />
+
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                HorizontalTextAlignment="Start"
+                                Style="{StaticResource Label14Style}"
+                                Text="Cor de uma tarefa com prioridade alta." />
+
+                        </Grid>
+
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+
+    </ScrollView>
+
+</ContentPage>

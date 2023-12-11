@@ -1,0 +1,411 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="MyTasks.Views.MainPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MyTasks.Convertors"
+    xmlns:model="clr-namespace:MyTasks.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:viewmodel="clr-namespace:MyTasks.ViewModels"
+    x:DataType="viewmodel:MainViewModel"
+    Shell.BackgroundColor="{StaticResource Primary}">
+
+    <Shell.TitleView>
+
+        <Grid
+            Margin="20,0"
+            BackgroundColor="{StaticResource Primary}"
+            ColumnDefinitions="*,Auto,Auto,Auto"
+            ColumnSpacing="15">
+
+            <ImageButton
+                Grid.Column="1"
+                Command="{Binding NavigatetoHelpPageCommand}"
+                HeightRequest="25"
+                IsEnabled="{Binding IsAjudarButtonEnabled}"
+                Source="logo_ajudar"
+                WidthRequest="25" />
+
+            <Label
+                FontAttributes="Bold"
+                FontFamily="OpenSansRegular"
+                FontSize="19"
+                HorizontalOptions="Start"
+                HorizontalTextAlignment="Start"
+                Text="Minhas Tarefas"
+                TextColor="White"
+                VerticalOptions="Center"
+                VerticalTextAlignment="Center" />
+
+            <ImageButton
+                Grid.Column="2"
+                Command="{Binding OpenFiltroCommand}"
+                HeightRequest="25"
+                IsEnabled="{Binding IsFiltroButtonEnabled}"
+                Source="logo_filter"
+                WidthRequest="25" />
+
+            <ImageButton
+                Grid.Column="3"
+                Command="{Binding OpenNovaTarefaMenuCommand}"
+                HeightRequest="25"
+                IsEnabled="{Binding IsNovaTarefaButtonEnabled}"
+                Source="logo_adicionar"
+                WidthRequest="25" />
+
+        </Grid>
+
+    </Shell.TitleView>
+
+    <Grid>
+
+        <!--  Collection View  -->
+        <CollectionView
+            Margin="20"
+            ItemsSource="{Binding Tasks}">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Task">
+
+                    <SwipeView Margin="0,5" SwipeEnded="SwipeView_SwipeEnded">
+
+                        <SwipeView.RightItems>
+
+                            <SwipeItems>
+
+                                <!--  Concluir Swipe Item  -->
+                                <SwipeItemView
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=ConcluirTarefaCommand}"
+                                    CommandParameter="{Binding .}">
+
+                                    <Frame
+                                        Padding="10"
+                                        BackgroundColor="Green"
+                                        WidthRequest="80">
+
+                                        <Grid RowDefinitions="Auto,Auto">
+
+                                            <Image Source="logo_concluir" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Style="{StaticResource Label14Style}"
+                                                Text="Concluir"
+                                                TextColor="White" />
+
+                                        </Grid>
+
+                                    </Frame>
+
+                                </SwipeItemView>
+
+                                <!--  Editar Swipe Item  -->
+                                <SwipeItemView
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=AbrirTarefaCommand}"
+                                    CommandParameter="{Binding .}">
+
+                                    <Frame
+                                        Padding="10"
+                                        BackgroundColor="Blue"
+                                        WidthRequest="80">
+
+                                        <Grid RowDefinitions="Auto,Auto">
+
+                                            <Image Source="logo_editar" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Style="{StaticResource Label14Style}"
+                                                Text="Editar"
+                                                TextColor="White" />
+
+                                        </Grid>
+
+                                    </Frame>
+
+                                </SwipeItemView>
+
+                                <!--  Excluir Swipe Item  -->
+                                <SwipeItemView
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MainViewModel}}, Path=ExcluirTarefaCommand}"
+                                    CommandParameter="{Binding .}">
+
+                                    <Frame
+                                        Padding="10"
+                                        BackgroundColor="Red"
+                                        WidthRequest="80">
+
+                                        <Grid RowDefinitions="Auto,Auto">
+
+                                            <Image Source="logo_excluir" />
+
+                                            <Label
+                                                Grid.Row="1"
+                                                Style="{StaticResource Label14Style}"
+                                                Text="Excluir"
+                                                TextColor="white" />
+
+                                        </Grid>
+
+                                    </Frame>
+
+                                </SwipeItemView>
+
+                            </SwipeItems>
+
+                        </SwipeView.RightItems>
+
+                        <Frame BackgroundColor="{Binding TaskStatusIndex, Converter={converters:TaskColorConverter}}">
+
+                            <Grid ColumnDefinitions="0.5*, 0.5*">
+
+                                <Label
+                                    Style="{StaticResource Label16Style}"
+                                    Text="{Binding Descricao}"
+                                    TextColor="Black" />
+
+                                <Label
+                                    Grid.Column="1"
+                                    Style="{StaticResource Label16Style}"
+                                    Text="{Binding DataMarcada, StringFormat='{}{0:dd/MM/yyyy}'}"
+                                    TextColor="Black" />
+                            </Grid>
+
+                        </Frame>
+
+                    </SwipeView>
+
+                </DataTemplate>
+
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!--  Empty List Label  -->
+        <Label
+            IsEnabled="{Binding Tasks.Count, Converter={converters:IsZeroConverter}}"
+            IsVisible="{Binding Tasks.Count, Converter={converters:IsZeroConverter}}"
+            Style="{StaticResource Label16Style}"
+            Text="Não há tarefas!"
+            TextColor="{AppThemeBinding Light=Black,
+                                        Dark=White}" />
+
+        <!--  Nova Tarefa Menu  -->
+        <Frame
+            Padding="0"
+            BackgroundColor="{AppThemeBinding Light={StaticResource MyLightColor},
+                                              Dark={StaticResource MyDarkColor}}"
+            BorderColor="Transparent"
+            CornerRadius="0"
+            IsEnabled="{Binding IsNovaTarefaMenuOpen}"
+            IsVisible="{Binding IsNovaTarefaMenuOpen}">
+
+            <Frame
+                Margin="20"
+                Padding="0"
+                Style="{StaticResource FrameStyle}">
+
+                <VerticalStackLayout Spacing="30">
+
+                    <!--  Title  -->
+                    <Grid
+                        Padding="15"
+                        BackgroundColor="{StaticResource Primary}">
+
+                        <Label
+                            Style="{StaticResource Label16Style}"
+                            Text="{Binding TarefaSelecionada.Titulo}" />
+
+                    </Grid>
+
+                    <!--  Campos  -->
+                    <VerticalStackLayout
+                        Padding="20"
+                        Spacing="20">
+
+                        <!--  Tarefa Descricão  -->
+                        <VerticalStackLayout>
+
+                            <Label
+                                Style="{StaticResource CampoHeaderLabel}"
+                                Text="Descrição" />
+
+                            <Frame Padding="10">
+
+                                <Entry
+                                    Placeholder="Consulta Médica"
+                                    Style="{StaticResource CampoEntryStyle}"
+                                    Text="{Binding TarefaSelecionada.Descricao}" />
+
+                            </Frame>
+
+                        </VerticalStackLayout>
+
+                        <!--  Tarefa Data Marcada  -->
+                        <VerticalStackLayout>
+
+                            <Label
+                                Style="{StaticResource CampoHeaderLabel}"
+                                Text="Data" />
+
+                            <Frame Padding="10">
+
+                                <Grid>
+
+                                    <DatePicker
+                                        Date="{Binding TarefaSelecionada.DataMarcada}"
+                                        Format="dd/MM/yyyy"
+                                        MinimumDate="{Binding DataAtual}"
+                                        Style="{StaticResource DatePickerStyle}" />
+
+                                </Grid>
+
+                            </Frame>
+
+                        </VerticalStackLayout>
+
+                        <!--  Tarefa Prioridade Picker  -->
+                        <VerticalStackLayout>
+
+                            <Label
+                                Style="{StaticResource CampoHeaderLabel}"
+                                Text="Prioridade" />
+
+                            <Frame Padding="10">
+
+                                <Grid>
+
+                                    <Picker
+                                        Title="Escolha um ordem"
+                                        SelectedIndex="{Binding TarefaSelecionada.TaskStatusIndex}"
+                                        Style="{StaticResource PickerStyle}">
+
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Normal</x:String>
+                                                <x:String>Concluída</x:String>
+                                                <x:String>Prioridade Baixa</x:String>
+                                                <x:String>Prioridade Média</x:String>
+                                                <x:String>Prioridade Alta</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+
+                                    </Picker>
+
+                                </Grid>
+
+                            </Frame>
+
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+
+                    <!--  UI Buttons  -->
+                    <Grid
+                        Padding="20"
+                        ColumnDefinitions="0.5*,0.5*"
+                        ColumnSpacing="10">
+
+                        <Button
+                            Command="{Binding CloseNovaTarefaMenuCommand}"
+                            Text="Cancelar" />
+
+                        <Button
+                            Grid.Column="1"
+                            Command="{Binding AdicionarTarefaCommand}"
+                            Text="Confirmar" />
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </Frame>
+
+        <!--  Tarefa Filtros  -->
+        <Frame
+            Padding="0"
+            BackgroundColor="Transparent"
+            BorderColor="Transparent"
+            CornerRadius="0"
+            IsEnabled="{Binding IsFiltroOpen}"
+            IsVisible="{Binding IsFiltroOpen}">
+
+            <Grid>
+
+                <!--  Mask  -->
+                <Image
+                    Background="Black"
+                    Opacity="0.6" />
+
+                <Frame
+                    Margin="40"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource MyLightColor},
+                                                      Dark={StaticResource MyDarkColor}}"
+                    VerticalOptions="Center">
+
+                    <VerticalStackLayout Spacing="20">
+
+                        <!--  Título  -->
+                        <Label
+                            FontSize="18"
+                            Style="{StaticResource Label14Style}"
+                            Text="Filtros"
+                            TextColor="{AppThemeBinding Light={StaticResource Primary},
+                                                        Dark={StaticResource MyLightColor}}" />
+
+                        <VerticalStackLayout>
+
+                            <Label
+                                Style="{StaticResource CampoHeaderLabel}"
+                                Text="Ordenar por" />
+
+                            <!--  Filtro Picker  -->
+                            <Frame Padding="15">
+
+                                <Grid>
+
+                                    <Picker
+                                        Title="Escolha um ordem"
+                                        SelectedIndex="{Binding FiltroIndex}"
+                                        Style="{StaticResource PickerStyle}">
+
+                                        <Picker.ItemsSource>
+                                            <x:Array Type="{x:Type x:String}">
+                                                <x:String>Todas</x:String>
+                                                <x:String>Conluidas</x:String>
+                                                <x:String>Prioridade Crescente</x:String>
+                                                <x:String>Prioridade Decrescente</x:String>
+                                                <x:String>Data Criada Crescente</x:String>
+                                                <x:String>Data Criada Decrescente</x:String>
+                                                <x:String>Data Marcada Crescente</x:String>
+                                                <x:String>Data Marcada Decrescente</x:String>
+                                            </x:Array>
+                                        </Picker.ItemsSource>
+
+                                    </Picker>
+
+                                </Grid>
+
+                            </Frame>
+
+                        </VerticalStackLayout>
+
+                        <Button
+                            Command="{Binding CloseFiltroCommand}"
+                            Text="OK"
+                            WidthRequest="100" />
+
+                    </VerticalStackLayout>
+
+                </Frame>
+
+            </Grid>
+
+        </Frame>
+
+    </Grid>
+
+</ContentPage>
